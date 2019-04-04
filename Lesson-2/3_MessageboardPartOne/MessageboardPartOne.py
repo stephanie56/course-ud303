@@ -22,6 +22,12 @@ from urllib.parse import parse_qs
 
 
 class MessageHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write('<!DOCTYPE html><title>Message Board</title><form method="POST" action="http://localhost:8000/"><textarea name="message"></textarea><br><button type="submit">Post it!</button></form>'.encode())
+
     def do_POST(self):
         # 1. How long was the message? (Use the Content-Length header.)
         length = int(self.headers.get('Content-length', 0))
